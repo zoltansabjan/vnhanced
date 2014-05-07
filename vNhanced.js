@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         vNhanced v2
-// @version      2.1.0.7
+// @version      2.1.0.8
 // @namespace    http://vnhub.net/
 // @include      http://www.vnations.net/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
-// @downloadURL  https://greasyfork.org/scripts/658-vnhanced-v2/code/vNhanced%20v2.user.js
-// @updateURL    https://greasyfork.org/scripts/658-vnhanced-v2/code/vNhanced%20v2.user.js
-// @source       http://userscripts.org/scripts/show/163618
+// @downloadURL  https://raw.githubusercontent.com/zoltansabjan/vNhanced/master/vNhanced.js
+// @updateURL    https://raw.githubusercontent.com/zoltansabjan/vNhanced/master/vNhanced.js
+// @source       https://github.com/zoltansabjan/vNhanced
 // @icon         http://vnhub.net/vnhub/vNhanced/icons/icon_vnlogo.png
 // @description  Enhances the look and some functions of the browser game ®Virtual Nations
 // @author       Zoltan Sabjan <zoltan.sabjan@gmail.com> http://vnhub.net/
@@ -595,19 +595,18 @@ function dashboard_chat() {
 }
 
 function dashboard_infrastructure() {
-	var container = $('div:contains("Infrastructure")').closest('.col-sm-12');
+    var container = $('div:contains("Infrastructure")').closest('.col-sm-12');
     var img_holder = container.find('.text-center');
+    var label = container.find('span');
     
     img_holder.find('img').each(function() {
         $(this).closest('.text-center').css({
             'background-image': 'url(' + $(this).attr('src') + ')',
             'background-size': $(this).attr('width') + 'px'
         });
-        $(this).closest('.text-center').attr('title', $(this).closest('.text-center').find('span').text());
         $(this).closest('.text-center').attr('oldtitle', $(this).attr('title'));
 	});
     img_holder.find('img').remove();
-    img_holder.find('span').remove();
     img_holder.css({
         'height': '75px',
 		'width': '75px',
@@ -615,6 +614,27 @@ function dashboard_infrastructure() {
         'background-repeat': 'no-repeat',
         'margin': '5px',
         'padding-top': '75px',
+        'overflow': 'hidden',
+        '-webkit-transition': 'all 100ms ease-out',
+    	'-moz-transition': 'all 100ms ease-out',
+    	'-o-transition': 'all 100ms ease-out',
+    	'-ms-transition': 'all 100ms ease-out',
+    	'transition': 'all 100ms ease-out',
 		'box-shadow': 'rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(255, 255, 255, 0.3) 0px 0px 2px 0px inset, rgba(0, 0, 0, 0.2) 0px 0px 0px 1px'
     });
+    label.css({
+        'width': '75px',
+        'float': 'left',
+        'font-size': '10px',
+        'border-radius': '0px',
+        'background': 'rgba(0, 0, 0, 0.6)',
+        'white-space': 'normal'
+    });
+    img_holder.hover(
+  		function() {
+    		$(this).css('padding-top', 75 - $(this).find('.label').outerHeight() + 'px');
+  		}, function() {
+    		$(this).css('padding-top', '75px');
+  		}
+	);
 }

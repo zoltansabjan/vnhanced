@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         vNhanced v2
-// @version      2.1.0.9
+// @version      2.1.1.0
 // @namespace    http://vnhub.net/
 // @include      http://www.vnations.net/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js

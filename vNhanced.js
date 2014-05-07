@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         vNhanced v2
-// @version      2.1.0.8
+// @version      2.1.0.9
 // @namespace    http://vnhub.net/
 // @include      http://www.vnations.net/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
@@ -615,12 +615,7 @@ function dashboard_infrastructure() {
         'margin': '5px',
         'padding-top': '75px',
         'overflow': 'hidden',
-        '-webkit-transition': 'all 100ms ease-out',
-    	'-moz-transition': 'all 100ms ease-out',
-    	'-o-transition': 'all 100ms ease-out',
-    	'-ms-transition': 'all 100ms ease-out',
-    	'transition': 'all 100ms ease-out',
-		'box-shadow': 'rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(255, 255, 255, 0.3) 0px 0px 2px 0px inset, rgba(0, 0, 0, 0.2) 0px 0px 0px 1px'
+		'box-shadow': 'rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset, rgba(255, 255, 255, 0.15) 0px 0px 4px 2px inset, rgba(0, 0, 0, 0.8) 0px 0px 0px 1px, rgba(255, 255, 255, 0.08) 0px 0px 0px 4px ,rgba(0, 0, 0, 0.75) 0px 0px 0px 3px'
     });
     label.css({
         'width': '75px',

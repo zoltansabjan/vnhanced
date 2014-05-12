@@ -1,9 +1,10 @@
 // ==UserScript==
-// @name         vNhanced v2
-// @version      2.1.1.0
+// @name         vnhanced
+// @version      2.1.1.1
 // @namespace    http://vnhub.net/
 // @include      http://www.vnations.net/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
+// @require      http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
 // @downloadURL  https://raw.githubusercontent.com/zoltansabjan/vNhanced/master/vNhanced.js
 // @updateURL    https://raw.githubusercontent.com/zoltansabjan/vNhanced/master/vNhanced.js
 // @source       https://github.com/zoltansabjan/vNhanced
@@ -45,7 +46,7 @@ function event_handlers() {
 	});*/
 }
 
-function css_inject() { // unlimited css-objects as arguments, "css_inject('class_to_select { styles; }', 'class2_to_select { styles; }'" |||||||||||||||||||| ie.: "css_inject('.disable-hover { pointer-events: none; border: none; }')"
+function css_inject() { // unlimited css-objects as arguments, "css_inject('elem { styles; }', 'elem2 { styles; }'" --> ie.: "css_inject('.disable-hover { pointer-events: none; border: none; }')"
     var link = window.document.createElement('link');
 	var argument_vault_array = [];
     for (var i = 0; i < arguments.length; i++) {
@@ -59,158 +60,24 @@ function css_inject() { // unlimited css-objects as arguments, "css_inject('clas
 }
 
 function common_content() {
-    css_inject('.form-control:focus { -moz-box-shadow: rgba(255, 255, 255, 0.2) -1px -1px 0px 0px, rgba(0, 0, 0, 0.3) 1px 1px 0px 0px; -webkit-box-shadow: rgba(255, 255, 255, 0.2) -1px -1px 0px 0px, rgba(0, 0, 0, 0.3) 1px 1px 0px 0px; box-shadow: rgba(255, 255, 255, 0.2) -1px -1px 0px 0px, rgba(0, 0, 0, 0.3) 1px 1px 0px 0px; }');
-    css_inject('.image-wrap { position: relative; max-width: 100%; vertical-align: bottom; }');
-    css_inject('.image-wrap:after { content: " "; width: 100%; height: 100%; position: absolute; top: -1px; left: -1px; border: solid 1px #1b1b1b; -wekbit-box-shadow: inset 0 0 1px rgba(255,255,255,.4), inset 0 1px 0 rgba(255,255,255,.4), 0 1px 2px rgba(0,0,0,.3); -moz-box-shadow: inset 0 0 1px rgba(255,255,255,.4), inset 0 1px 0 rgba(255,255,255,.4), 0 1px 2px rgba(0,0,0,.3); box-shadow: inset 0 0 1px rgba(255,255,255,.4), inset 0 1px 0 rgba(255,255,255,.4), 0 1px 2px rgba(0,0,0,.3); -webkit-border-radius: 7px; -moz-border-radius: 7px; border-radius: 7px; }');
-    css_inject('.image-wrap img { vertical-align: bottom; -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.4); -moz-box-shadow: 0 1px 2px rgba(0,0,0,.4); box-shadow: 0 1px 2px rgba(0,0,0,.4); -webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px; }');
-    
-    /*$('img').each(function() {
-		var imgClass = $(this).attr('class');
-        $(this).wrap('<span class="image-wrap ' + imgClass + '" style="width: auto; height: auto; padding: 0px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: none;"/>');
-		$(this).removeAttr('class');
-	});*/
-    
-    var html = $('html');
-    var body = $('body');
-	var main_container = body.children('#maincontainer');
-    var contentwrapper = main_container.children('#contentwrapper');
-    var main_content = contentwrapper.children('.main_content');
-    var common_containers_panel = $('.col-sm-12').find('.panel');
-    var common_containers_panel_heading = $('.col-sm-12').find('.panel-heading');
-    var common_containers_panel_body = $('.col-sm-12').find('.panel-body');
 
-    html.css({
-        'background-image': 'url("http://vnhub.net/vnhub/vNhanced/images/background_tiled_medium_grey.png")'
-    });
-    body.css({
-        'color': 'rgb(126, 125, 123)',
-        'text-shadow': 'rgba(0, 0, 0, 0.2) 1px 1px 0px'
-    });
-    main_container.css({
-        "border-right": "none",
-        "border-left": "none"
-    });
-    contentwrapper.css({
-        'background-image': 'url(http://vnhub.net/vnhub/vNhanced/images/background_tiled_medium_grey.png)'
-    });
-    main_content.css({
-        'background': 'transparent'
-    });
-    common_containers_panel.css({
-        'background-color': 'transparent',
-        'border': 'none',
-        '-webkit-box-shadow': 'inset rgba(255, 255, 255, 0.1) 0px 1px 0px 0px, inset rgba(255, 255, 255, 0.06) 0px 0px 0px 1px, rgba(0, 0, 0, 0.6) 0px 0px 4px 1px, rgba(0, 0, 0, 0.6) 0px 0px 0px 4px, rgba(255, 255, 255, 0.1) 0px 1px 0px 4px, rgba(255, 255, 255, 0.06) 0px 0px 0px 5px',
-        '-moz-box-shadow': 'inset rgba(255, 255, 255, 0.1) 0px 1px 0px 0px, inset rgba(255, 255, 255, 0.06) 0px 0px 0px 1px, rgba(0, 0, 0, 0.6) 0px 0px 4px 1px, rgba(0, 0, 0, 0.6) 0px 0px 0px 4px, rgba(255, 255, 255, 0.1) 0px 1px 0px 4px, rgba(255, 255, 255, 0.06) 0px 0px 0px 5px',
-        'box-shadow': 'inset rgba(255, 255, 255, 0.1) 0px 1px 0px 0px, inset rgba(255, 255, 255, 0.06) 0px 0px 0px 1px, rgba(0, 0, 0, 0.6) 0px 0px 4px 1px, rgba(0, 0, 0, 0.6) 0px 0px 0px 4px, rgba(255, 255, 255, 0.1) 0px 1px 0px 4px, rgba(255, 255, 255, 0.06) 0px 0px 0px 5px'
-    });
-    common_containers_panel_heading.css({
-        'background-color': 'transparent',
-        'border': 'none',
-        'color': 'rgb(163, 155, 55)'
-    });
 }
 
 function navbar() {
-    var navbar_container = $('.navbar');
-    var navbar_inner = navbar_container.find('.navbar-inner');
-    var navbar_brand = navbar_container.find('.brand');
-    var navbar_user_menu = navbar_container.find('.user_menu');
-    var navbar_collapse = navbar_container.find('.btn_menu');
-    var navbar_label = navbar_container.find('.label');
-    var navbar_nb_boxes = navbar_container.find('.nb_boxes');
-    var navbar_text = navbar_container.find('.act');
-    var navbar_icon_mail = navbar_container.find('.splashy-mail_light');
-    var navbar_icon_alert = navbar_container.find('img[src="http://static.vnations.net/images/icons/exclamation-octagon.png"]');
-    var navbar_icon_battles = navbar_container.find('img[src="http://static.vnations.net/images/icons/target.png"]');
-    var navbar_icon_sports = navbar_container.find('img[src="http://static.vnations.net/images/icons/sport.png"]');
-    var navbar_calendar = navbar_container.find('.splashy-calendar_day');
-    var navbar_dividers = navbar_container.find('.divider-vertical');
-    
-    navbar_container.css({
-        'height': '40px',
-        'line-height': '40px',
-        'margin': '0px',
-        'position': 'fixed',
-        'width': '100%',
-        'max-height': '40px'
-    });
-    navbar_inner.css({
-        'height': '40px',
-        'line-height': '40px',
-        'position': 'relative',
-        'border': 'none',
-        'background': '#222 url("http://vnhub.net/vnhub/vNhanced/images/background_tiled_medium_grey.png")',
-        '-webkit-box-shadow': 'none',
-        '-moz-box-shadow': 'none',
-        'box-shadow': 'none'
-    });
-    navbar_brand.remove();
-    navbar_inner.children('.container').prepend('<div id="brand" style="float: left; position: relative; top: -13px;"><a class="brand" href="/dashboard.php" style="top: 9px; font-size: 20px; height: 20px; line-height: 20px; padding: 0px; margin: 0px; width: auto; z-index: 2; position: relative; color: rgb(170, 167, 162); text-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px, rgba(255, 255, 255, 0.05) 1px 2px 0px; z-index: 3;">virtual nations</a><a class="brand ext_disabled" href="http://userscripts.org/scripts/show/163618" target="_blank" style="left: -140px; top: 20px; font-size: 9px; height: 9px; line-height: 9px; padding: 0px; margin: 0px; width: auto; z-index: 2; position: relative; color: rgb(170, 167, 162); text-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px, rgba(255, 255, 255, 0.05) 1px 2px 0px;">vNhanced v' + GM_info.script.version + '</a></div>');
-    /*$('.brand').hover(function () {
-        $(this).stop().fadeTo(200, 0.9);
-        $(this).css('cursor', 'pointer');
-    }, function () {
-        $(this).stop().fadeTo(400, 0.6);
-        $(this).css('cursor', 'default');
-    });*/
-    navbar_user_menu.css({
-        'height': '40px',
-        'line-height': '40px'
-    });
-    navbar_collapse.css({
-        'border': 'none',
-		'box-shadow': 'none'
-    });
-    navbar_label.css({
-        'height': '40px',
-        'line-height': '40px',
-        'background': 'none',
-        'padding': '0px'
-    });
-    navbar_nb_boxes.css({
-        'height': '40px',
-        'line-height': '40px',
-        'margin': '0px',
-        'padding': '0px 10px 0px 10px',
-		'color': 'rgb(126, 125, 123)',
-		'text-shadow': 'rgba(0, 0, 0, 0.2) 1px 1px 0px'
-    });
-    navbar_text.css({
-        'color': 'rgb(126, 125, 123)',
-        'text-shadow': 'rgba(0, 0, 0, 0.2) 1px 1px 0px',
-        'font-weight': 'normal'
-    });
-    navbar_icon_mail.css({
-        'background-position': '0px 0px',
-        'background-repeat': 'no-repeat',
-        'background-image': 'url("http://vnhub.net/vnhub/vNhanced/icons/icon_mail.png")',
-        'width': '30px',
-        'height': '30px',
-        'vertical-align': 'middle'
-    });
-    navbar_icon_alert.attr('src', 'http://vnhub.net/vnhub/vNhanced/icons/icon_alert.png');
-    navbar_icon_battles.attr('src', 'http://vnhub.net/vnhub/vNhanced/icons/icon_battle.png');
-    navbar_icon_sports.attr('src', 'http://vnhub.net/vnhub/vNhanced/icons/icon_sports.png');
-    navbar_calendar.css({
-        'background-image': 'url("http://vnhub.net/vnhub/vNhanced/icons/icon_calendar.png")',
-        'background-position': 'initial',
-        'vertical-align': 'middle',
-        'top': '-1px',
-        'width': '26px',
-        'height': '26px'
-    });
-    navbar_nb_boxes.find('a').each(function () { // append a div for the notification number if needed
+    $('.navbar').find('.brand').remove();
+    $('.navbar').find('.container').prepend('<div id="brand" style="float: left; position: relative; top: -13px;"><a class="brand" href="/dashboard.php" style="top: 9px; font-size: 20px; height: 20px; line-height: 20px; padding: 0px; margin: 0px; width: auto; z-index: 2; position: relative; color: rgb(170, 167, 162); text-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px, rgba(255, 255, 255, 0.05) 1px 2px 0px; z-index: 3;">virtual nations</a><a class="brand ext_disabled" href="http://userscripts.org/scripts/show/163618" target="_blank" style="left: -140px; top: 20px; font-size: 9px; height: 9px; line-height: 9px; padding: 0px; margin: 0px; width: auto; z-index: 2; position: relative; color: rgb(170, 167, 162); text-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px, rgba(255, 255, 255, 0.05) 1px 2px 0px;">vnhanced v' + GM_info.script.version + '</a></div>');
+    $('.navbar').find('img[src="http://static.vnations.net/images/icons/exclamation-octagon.png"]').attr('src', 'http://vnhub.net/vnhub/vNhanced/icons/icon_alert.png');
+    $('.navbar').find('img[src="http://static.vnations.net/images/icons/target.png"]').attr('src', 'http://vnhub.net/vnhub/vNhanced/icons/icon_battle.png');
+    $('.navbar').find('img[src="http://static.vnations.net/images/icons/sport.png"]').attr('src', 'http://vnhub.net/vnhub/vNhanced/icons/icon_sports.png');
+    $('.navbar').find('.nb_boxes').find('a').each(function () { // append a div for the notification number if needed
         if ($(this).text() != 0) {
-            $(this).append('<div class="notification_number" style="display: inline-block; border-radius: 4px 0px 4px 0px; border: 1px solid; border-color: #FFFFFF; box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 2px, rgba(0, 0, 0, 0.2) 0px -6px 0px inset; height: 12px; position: relative; top: 7px; left: -7px; background: -webkit-radial-gradient(3px 3px, circle, #DB4B4B, #EC8787);"><p style="margin: 0px 2px 0px 2px; line-height: 12px;">' + $(this).text() + '</p></div>');
+            $(this).append('<div class="notification_number" style="display: table-cell; padding: 0px 1px; border-radius: 4px 0px 4px 0px; box-shadow: rgba(255, 255, 255, 0.25) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.1) 1px 1px 0px 0px, rgba(0, 0, 0, 0.25) 0px -7px 0px 0px inset; height: 12px; position: relative; top: -17px; left: 24px; background: -webkit-radial-gradient(3px 3px, circle, #B34D4D, #FF9045);"><p style="margin: 0px 2px 0px 2px; line-height: 12px; text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 1px; color: rgb(255, 251, 244);">' + $(this).text() + '</p></div>');
         }
     });
-    navbar_nb_boxes.find('a').contents().each(function () {
+    $('.navbar').find('.nb_boxes').find('a').contents().each(function () {
         if (this.nodeType === 3) {
             this.parentNode.removeChild(this);
         }
-    });
-    navbar_dividers.css({
-        'border': 'none'
     });
 }
 
@@ -342,7 +209,10 @@ function module_weather() {
 }
 
 function module_events() {
-	var events_container = $('.panel-heading:contains("Events")').closest('.col-sm-6');
+    css_inject('.event_green { background-color: rgba(66, 255, 6, 0.02); }');
+    css_inject('.event_red { background-color: rgba(255, 6, 6, 0.02) }');
+    
+    var events_container = $('.panel-heading:contains("Events")').closest('.col-sm-6');
     var events_panel = events_container.find('.panel:first').addClass('events_layer_container');
     var events_info = events_container.find('i');
     var events_content = events_container.find('font');
@@ -359,14 +229,26 @@ function module_events() {
         $(this).nextUntil("br").addBack().wrapAll("<div class='event_item'/>");
         if($(this).next('font').css('color') == 'rgb(255, 0, 0)'){
             $(this).next('font').css('color', 'rgb(221, 91, 91)');
+            $(this).parent().addClass('event_red');
         }else if($(this).next('font').css('color') == 'rgb(0, 128, 0)'){
 			$(this).next('font').css('color', 'rgb(131, 163, 48)');
+            $(this).parent().addClass('event_green');
         }
     });
+	var string = events_panel_body.justtext().split("\n");
     var events_item = events_container.find('.event_item');
-    events_item.after('<div class="event_item_cover"/>');
+    //events_item.after('<div class="event_item_cover"/>');
     var events_item_cover = events_container.find('.event_item_cover');
 	events_container.find('br').remove();
+    events_panel_heading.remove();
+    var $draggableElems = events_panel_body.children('div').draggable({
+        axis: 'y',
+        drag: function (e, ui) {
+        	var elemPos = $(value).position();
+			initLeftOffset[key] = elemPos.left - pos.left;
+            initTopOffset[key] = elemPos.top - pos.top;
+        }
+    });
     events_content.css({
         'margin': '0px 5px',
         'text-shadow': 'inherit'
@@ -382,7 +264,8 @@ function module_events() {
         'background-image': 'url(http://vnhub.net/vnhub/vNhanced/images/background_tiled_dark_grey.png)'
     });
     events_layer_body.css({
-        'padding': '5px 0px 5px 0px',
+        'padding': '4px',
+        'height': '166px',
         'box-shadow': 'rgba(255, 255, 255, 0.14) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.6) 0px 0px 0px 3px inset, rgba(255, 255, 255, 0.08) 0px 0px 0px 4px inset',
         'border-radius': '6px',
         'background-image': 'url(http://vnhub.net/vnhub/vNhanced/images/background_tiled_dark_grey.png)'
@@ -397,43 +280,32 @@ function module_events() {
         '-moz-box-shadow': 'rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.8) 0px 0px 0px 1px, rgba(255, 255, 255, 0.09) 0px 0px 0px 2px, rgba(0, 0, 0, 0.2) 0px 0px 0px 7px inset',
         'box-shadow': 'rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.8) 0px 0px 0px 1px, rgba(255, 255, 255, 0.09) 0px 0px 0px 2px, rgba(0, 0, 0, 0.2) 0px 0px 0px 7px inset',
     });
-    events_panel_heading.css({
-        'background-color': 'transparent',
-        'border': 'none',
-        'padding': '5px 0px 5px 0px',
-        'color': 'rgb(163, 155, 55)'
-    });
-    events_panel_heading.remove();
     events_panel_body.css({
     	'margin-right': '5px',
-        'padding': '5px 10px 5px 10px'
+        'padding': '0px',
+        'height': '158px',
     });
     events_item.css({
-        'height': '20px',
-        'line-height': '20px',
-        'margin': '5px 0px 5px 0px',
-        'padding': '0px 4px',
+        'height': '40px',
+        'line-height': '40px',
+        'margin': '0px 0px 1px 0px',
         'font-size': '12px',
         'border-radius': '3px',
-        'box-shadow': 'rgba(255, 255, 255, 0.08) 0px 0px 0px 1px inset, rgba(255, 255, 255, 0.2) 0px -1px 0px 0px inset, rgba(0, 0, 0, 0.2) 0px 1px 1px 1px',
-        'text-shadow': 'rgba(0, 0, 0, 0.4) -1px -1px 0px, rgba(255, 153, 0, 0.3) 0px 0px 24px'
+        'text-shadow': 'rgba(0, 0, 0, 0.4) -1px -1px 0px, rgba(255, 153, 0, 0.3) 0px 0px 24px',
+        'box-shadow': 'rgba(0, 0, 0, 0.7) 0px 0px 0px 1px inset, rgba(255, 255, 255, 0.08) 0px 0px 0px 2px inset'
     });
     events_item_cover.css({
         'pointer-events': 'none',
-        'height': '20px',
-        'line-height': '20px',
-        'position': 'relative',
-        'top': '-25px',
-        'margin-bottom': '-25px',
-        'border-radius': '3px',
-		'box-shadow': 'rgba(255, 255, 255, 0.02) 0px 0px 0px 20px inset, rgba(255, 255, 255, 0.08) 0px 5px 2px 0px inset, rgba(0, 0, 0, 0.3) 0px -10px 4px 0px inset'
+        'height': '40px',
+        'line-height': '40px',
+        'border-radius': '3px'
     });
     events_layer_cover.css({
         'pointer-events': 'none',
         'position': 'relative',
-		'height': '186px',
-        'margin': '2px 2px -188px',
-		'top': '-190px',
+		'height': '176px',
+        'margin': '2px 2px -178px',
+		'top': '-180px',
 		'border-radius': '4px',
 		'background': 'rgba(255, 255, 255, 0.05)',
         'box-shadow': 'rgba(255, 251, 163, 0.1) 0px 0px 0px 1px inset, rgba(255, 252, 171, 0.1) 0px 0px 10px 1px inset'
@@ -622,7 +494,7 @@ function dashboard_infrastructure() {
         'float': 'left',
         'font-size': '10px',
         'border-radius': '0px',
-        'background': 'rgba(0, 0, 0, 0.6)',
+        'background': 'rgba(0, 0, 0, 0.8)',
         'white-space': 'normal'
     });
     img_holder.hover(
@@ -633,3 +505,10 @@ function dashboard_infrastructure() {
   		}
 	);
 }
+jQuery.fn.justtext = function() {
+    return $(this)  .clone()
+            .children()
+            .remove()
+            .end()
+            .text();
+};

@@ -5,8 +5,8 @@
 // @include      http://www.vnations.net/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
 // @require      http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
-// @downloadURL  https://raw.githubusercontent.com/zoltansabjan/vNhanced/master/vNhanced.js
-// @updateURL    https://raw.githubusercontent.com/zoltansabjan/vNhanced/master/vNhanced.js
+// @downloadURL  https://raw.githubusercontent.com/zoltansabjan/vnhanced/master/vnhanced.js
+// @updateURL    https://raw.githubusercontent.com/zoltansabjan/vnhanced/master/vnhanced.js
 // @source       https://github.com/zoltansabjan/vNhanced
 // @icon         http://vnhub.net/vnhub/vNhanced/icons/icon_vnlogo.png
 // @description  Enhances the look and some functions of the browser game ®Virtual Nations

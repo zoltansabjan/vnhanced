@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         vnhanced
-// @version      2.1.1.1
+// @version      2.1.1.2
 // @namespace    http://vnhub.net/
 // @include      http://www.vnations.net/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
 // @require      http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
 // @downloadURL  https://raw.githubusercontent.com/zoltansabjan/vnhanced/master/vnhanced.js
 // @updateURL    https://raw.githubusercontent.com/zoltansabjan/vnhanced/master/vnhanced.js
-// @source       https://github.com/zoltansabjan/vNhanced
+// @source       https://github.com/zoltansabjan/vnhanced
 // @icon         http://vnhub.net/vnhub/vNhanced/icons/icon_vnlogo.png
 // @description  Enhances the look and some functions of the browser game ®Virtual Nations
 // @author       Zoltan Sabjan <zoltan.sabjan@gmail.com> http://vnhub.net/
@@ -272,6 +272,7 @@ function module_events() {
     });    
     events_panel.css({
         'padding': '5px',
+        'height': '190px',
         'border': 'none',
         'border-radius': '10px',
         'background-color': 'transparent',

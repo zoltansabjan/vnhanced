@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         vnhanced
-// @version      2.1.1.2
+// @version      2.1.1.3
 // @namespace    http://vnhub.net/
 // @include      http://www.vnations.net/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
@@ -60,12 +60,12 @@ function css_inject() { // unlimited css-objects as arguments, "css_inject('elem
 }
 
 function common_content() {
-
+    
 }
 
 function navbar() {
     $('.navbar').find('.brand').remove();
-    $('.navbar').find('.container').prepend('<div id="brand" style="float: left; position: relative; top: -13px;"><a class="brand" href="/dashboard.php" style="top: 9px; font-size: 20px; height: 20px; line-height: 20px; padding: 0px; margin: 0px; width: auto; z-index: 2; position: relative; color: rgb(170, 167, 162); text-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px, rgba(255, 255, 255, 0.05) 1px 2px 0px; z-index: 3;">virtual nations</a><a class="brand ext_disabled" href="http://userscripts.org/scripts/show/163618" target="_blank" style="left: -140px; top: 20px; font-size: 9px; height: 9px; line-height: 9px; padding: 0px; margin: 0px; width: auto; z-index: 2; position: relative; color: rgb(170, 167, 162); text-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px, rgba(255, 255, 255, 0.05) 1px 2px 0px;">vnhanced v' + GM_info.script.version + '</a></div>');
+    $('.navbar').find('.container').prepend('<div id="brand" style="float: left; position: relative; top: -13px;"><a class="brand" href="/dashboard.php" style="top: 9px; font-size: 20px; height: 20px; line-height: 20px; padding: 0px; margin: 0px; width: auto; z-index: 2; position: relative; color: rgb(170, 167, 162); text-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px, rgba(255, 255, 255, 0.05) 1px 2px 0px; z-index: 3;">virtual nations</a><a class="brand ext_disabled" href="https://github.com/zoltansabjan/vnhanced" target="_blank" style="left: -140px; top: 20px; font-size: 9px; height: 9px; line-height: 9px; padding: 0px; margin: 0px; width: auto; z-index: 2; position: relative; color: rgb(170, 167, 162); text-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px, rgba(255, 255, 255, 0.05) 1px 2px 0px;">vnhanced v' + GM_info.script.version + '</a></div>');
     $('.navbar').find('img[src="http://static.vnations.net/images/icons/exclamation-octagon.png"]').attr('src', 'http://vnhub.net/vnhub/vNhanced/icons/icon_alert.png');
     $('.navbar').find('img[src="http://static.vnations.net/images/icons/target.png"]').attr('src', 'http://vnhub.net/vnhub/vNhanced/icons/icon_battle.png');
     $('.navbar').find('img[src="http://static.vnations.net/images/icons/sport.png"]').attr('src', 'http://vnhub.net/vnhub/vNhanced/icons/icon_sports.png');
@@ -182,22 +182,60 @@ function sidebar() {
 
 function module_weather() {
     var weather_container = $('a[href*="/nation/region.php?id="]').closest('.col-sm-6');
-    var weather_panel = weather_container.find('.panel:first');
+    var citizen_name = $('.user_avatar').closest('a').text().trim();
+    var current_country = weather_container.find($('img[src*="flags/"]')).attr('oldtitle');
+    var current_region = weather_container.find($('a[href*="/nation/region.php?id="]')).text();
+    var icon_weather = weather_container.find($('img[src*="weather/"]')).attr('src');
+	
+    if (aContainsB(icon_weather, "clearnight.png")) {
+        icon_weather = "clearnight";
+    } else if (aContainsB(icon_weather, "partlysunnyrain")) {
+        icon_weather = "partlysunnyrain";
+    } else if (aContainsB(icon_weather, "partlycloudy")) {
+        icon_weather = "partlycloudy";
+    } else {
+		icon_weather = "default";
+    }
+
+    weather_container.find('div').remove();
+	weather_container.append('\
+		<div class="module_weather"> \
+			<div class="weather_profile"> \
+				<div class="weather_profile_name">' + citizen_name + '</div> \
+			</div> \
+			<div class="weather_region"> \
+				<div class="weather_country_name">' + current_country + '</div> \
+				<div class="weather_region_name">' + current_region + '</div> \
+				<div class="weather_icon ' + icon_weather + '"></div> \
+				<a href="javascript:void();" onclick="ajaxDialog(\'/citizen/inventory.php\', \'jx=1\', \'Inventory\');" class="btn btn-default ttip_b" oldtitle="Open Inventory" title="" aria-describedby="ui-tooltip-57" style="z-index: 1; position: relative; float: right; margin-right: 5px;"><img src="http://static.vnations.net/images/icons/luggage.png" height="16" width="16"></a> \
+				<a href="/citizen/move.php" class="btn btn-default ttip_b" oldtitle="Move Citizen" title="" aria-describedby="ui-tooltip-10" style="z-index: 1; position: relative; float: right; margin-right: 5px;"><img src="http://static.vnations.net/images/icons/planenew.png" height="16" width="16"></a> \
+				<a href="javascript:void();" onclick="ajaxDialog(\'/citizen/shout.php\', \'jx=1\', \'Shout Out\');" class="btn btn-default ttip_b" oldtitle="Shout Out" title="" style="z-index: 1; position: relative; float: right; margin-right: 5px;"><img src="http://static.vnations.net/images/icons/balloon.png" height="16" width="16"></a> \
+            </div> \
+		</div>')
+    weather_container.css({
+        'height': '210px'
+    });
+/*    var weather_panel = weather_container.find('.panel:first');
     var weather_panel_heading = weather_container.find('.panel-heading:first');
     var weather_panel_body = weather_container.find('.panel-body:first');
     var weather_panel_footer = weather_container.find('.panel-footer:first');
     
+    weather_panel.append('<img src="http://vnhub.net/vnhub/vNhanced/images/weather_icon_sunny.png" class="weather_icon">')
+    $('.weather_icon').css({
+    });
     weather_panel.css({
         'margin-top': '3px',
         'background-color': 'transparent',
         'border': 'none',
-        '-webkit-box-shadow': 'inset rgba(255, 255, 255, 0.1) 0px 1px 0px 0px, inset rgba(255, 255, 255, 0.06) 0px 0px 0px 1px, rgba(0, 0, 0, 0.6) 0px 0px 4px 1px, rgba(0, 0, 0, 0.6) 0px 0px 0px 4px, rgba(255, 255, 255, 0.1) 0px 1px 0px 4px, rgba(255, 255, 255, 0.06) 0px 0px 0px 5px',
-        '-moz-box-shadow': 'inset rgba(255, 255, 255, 0.1) 0px 1px 0px 0px, inset rgba(255, 255, 255, 0.06) 0px 0px 0px 1px, rgba(0, 0, 0, 0.6) 0px 0px 4px 1px, rgba(0, 0, 0, 0.6) 0px 0px 0px 4px, rgba(255, 255, 255, 0.1) 0px 1px 0px 4px, rgba(255, 255, 255, 0.06) 0px 0px 0px 5px',
-        'box-shadow': 'inset rgba(255, 255, 255, 0.1) 0px 1px 0px 0px, inset rgba(255, 255, 255, 0.06) 0px 0px 0px 1px, rgba(0, 0, 0, 0.6) 0px 0px 4px 1px, rgba(0, 0, 0, 0.6) 0px 0px 0px 4px, rgba(255, 255, 255, 0.1) 0px 1px 0px 4px, rgba(255, 255, 255, 0.06) 0px 0px 0px 5px'
+        '-webkit-box-shadow': 'none',
+        '-moz-box-shadow': 'none',
+        'box-shadow': 'none'
     });
     weather_panel_heading.css({
         'background-color': 'transparent',
-        'border': 'none'
+        'border': 'none',
+        'position': 'relative',
+		'z-index': '1'
     });
     weather_panel_heading.find('a').css({
         'color': 'rgb(163, 155, 55)'
@@ -205,7 +243,7 @@ function module_weather() {
     weather_panel_footer.css({
         'background-color': 'transparent',
         'border': 'none'
-    });    
+    });    */
 }
 
 function module_events() {
@@ -506,6 +544,11 @@ function dashboard_infrastructure() {
   		}
 	);
 }
+
+function aContainsB (a, b) {
+    return a.indexOf(b) >= 0;
+}
+
 jQuery.fn.justtext = function() {
     return $(this)  .clone()
             .children()
